@@ -1,0 +1,35 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS secure_auth_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Create user table
+CREATE TABLE IF NOT EXISTS secure_auth_system.users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    last_login TIMESTAMP NULL,
+    failed_login_attempts INT DEFAULT 0,
+    account_locked BOOLEAN DEFAULT FALSE,
+    lockout_until TIMESTAMP NULL
+) ENGINE=InnoDB;
+
+-- Create sessions table for secure session management
+CREATE TABLE IF NOT EXISTS secure_auth_system.sessions (
+    session_id VARCHAR(128) PRIMARY KEY,
+    user_id INT NOT NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    user_agent TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- Create CSRF tokens table
+CREATE TABLE IF NOT EXISTS secure_auth_system.csrf_tokens (
+    token VARCHAR(128) PRIMARY KEY,
+    user_id INT NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;

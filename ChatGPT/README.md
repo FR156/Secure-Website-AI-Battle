@@ -12,3 +12,20 @@
 | SSRF                        | No user-controlled URLs sent to servers                                  |
 | Brute Force / Rate Limiting | To be enhanced with CAPTCHA, lockouts (not shown due to brevity)         |
 | HTTPS                       | Enforced via server config, not in PHP (must be enabled on deployment)   |
+
+## Project Structure
+/auth-system
+├── public/
+│   ├── index.php
+│   ├── login.php
+│   ├── register.php
+│   ├── logout.php
+├── includes/
+│   ├── db.php
+│   ├── auth.php
+│   ├── csrf.php
+├── templates/
+│   └── header.php
+│   └── footer.php
+├── src/
+│   └── output.css

@@ -1,0 +1,19 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS secure_auth;
+USE secure_auth;
+
+-- Create users table
+CREATE TABLE IF NOT EXISTS users (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash CHAR(60) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    failed_login_attempts TINYINT UNSIGNED DEFAULT 0,
+    locked_until DATETIME NULL
+);
+
+-- Add indexes for faster lookups
+CREATE INDEX idx_users_username ON users(username);
+CREATE INDEX idx_users_email ON users(email);
