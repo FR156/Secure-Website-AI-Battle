@@ -34,3 +34,11 @@ Deliverables:
 - PHP scripts for handling login, registration, and session management.
 - SQL queries for creating the user table in MariaDB.
 - Documentation outlining the security measures implemented within the code.
+
+## Databases
+Blackbox AI: -
+ChatGPT: auth_demo
+DeepSeek: secure_auth_system
+Google Gemini: secure_app_db
+PentestGPT: auth_system
+Qwen: secure_auth
